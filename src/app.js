@@ -8,6 +8,7 @@ const rateLimit = require("express-rate-limit");
 //const errorHandler = require('./middlewares/errorHandler');
 //const beerRoutes = require('./routes/beerRoutes');
 
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` });
 
 const app = express();
