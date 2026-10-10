@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const logger = require("../src/utils/logger");
 
 require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` });
 
@@ -15,16 +16,16 @@ describe("Prueba de Conexión a MongoDB (Variables de Entorno)", () => {
     }
 
     mongoose.connection.on("connecting", () =>
-      console.log("Intentando conectar a MongoDB..."),
+      logger.log("Intentando conectar a MongoDB..."),
     );
     mongoose.connection.on("connected", () =>
-      console.log(`Conexión exitosa a: ${mongoose.connection.name}`),
+      logger.log(`Conexión exitosa a: ${mongoose.connection.name}`),
     );
 
     try {
       await mongoose.connect(uri);
     } catch (error) {
-      console.error("Mensaje:", error.message);
+      logger.error("Mensaje:", error.message);
       throw error;
     }
   });
@@ -33,10 +34,10 @@ describe("Prueba de Conexión a MongoDB (Variables de Entorno)", () => {
     try {
       if (mongoose.connection.readyState !== 0) {
         await mongoose.disconnect();
-        console.log("Mongoose desconectado correctamente.");
+        logger.log("Mongoose desconectado correctamente.");
       }
     } catch (error) {
-      console.error("Error al cerrar conexión:", error.message);
+      logger.error("Error al cerrar conexión:", error.message);
     }
   });
 

@@ -5,10 +5,10 @@ const cors = require("cors");
 const compression = require("compression");
 const rateLimit = require("express-rate-limit");
 
-//const errorHandler = require('./middlewares/errorHandler');
+const errorHandler = require("./middlewares/errorHandler");
 //const beerRoutes = require('./routes/beerRoutes');
 
-process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+process.env.NODE_ENV = process.env.NODE_ENV || "development";
 require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` });
 
 const app = express();
@@ -40,6 +40,6 @@ app.use((req, res, next) => {
 });
 
 // Middleware centralizado de errores (Debe ir al final)
-// app.use(errorHandler);
+app.use(errorHandler);
 
 module.exports = app;
